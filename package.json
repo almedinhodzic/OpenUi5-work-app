@@ -1,0 +1,17 @@
+{
+  "name": "workui5app",
+  "version": "0.0.1",
+  "author": "Almedin Hodzic",
+  "scripts": {
+    "start": "ui5 serve --open index.html"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^2.8.1",
+    "ui5-middleware-livereload": "^0.5.1"
+  },
+  "ui5": {
+    "dependencies": [
+      "ui5-middleware-livereload"
+    ]
+  }
+}
