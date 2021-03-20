@@ -1,0 +1,16 @@
+<mvc:View controllerName="sap.btp.myUI5App.controller.Dashboard"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" displayBlock="true">
+
+
+
+	<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar"/>
+	<Text text="Hello {/user/name}"/>
+	<Button text="ACTION" type="Emphasized" press=".onNavToRole" />
+
+
+
+
+
+
+</mvc:View>

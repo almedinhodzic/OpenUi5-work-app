@@ -1,0 +1,20 @@
+<mvc:View controllerName="sap.btp.myUI5App.controller.Login"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout" displayBlock="true">
+  <Shell>
+    <App>
+      <pages>
+        <Page title="LOGIN INTO YOUR ACCOUNT">
+          <l:VerticalLayout class="sapUiContentPadding" width="100%">
+            <Label text="Email" labelFor="input-email" />
+            <Input id="input-email" required="true" type="Email" valueLiveUpdate="true" value="" placeholder="Your Email..."/>
+            <Label text="Password" labelFor="input-pw" />
+            <Input id="input-pw" required="true" type="Password" placeholder="Your Password..." value="" valueLiveUpdate="true" />
+            <Button text="LOGIN" press=".onLoginClick" type="Emphasized"/>
+          </l:VerticalLayout>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>

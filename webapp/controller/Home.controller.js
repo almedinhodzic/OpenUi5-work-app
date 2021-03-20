@@ -1,5 +1,12 @@
-sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
-  "use strict";
+sap.ui.define(
+  ["sap/btp/myUI5App/controller/BaseController"],
+  function (BaseController) {
+    "use strict";
 
-  return Controller.extend("sap.btp.myUI5App.controller.Home", {});
-});
+    return BaseController.extend("sap.btp.myUI5App.controller.Home", {
+      onNavToLogin: function () {
+        this.getRouter().navTo("login");
+      },
+    });
+  }
+);

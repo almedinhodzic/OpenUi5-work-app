@@ -1,0 +1,9 @@
+<mvc:View controllerName="sap.btp.myUI5App.controller.Navbar"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" displayBlock="true"
+	xmlns:tnt="sap.tnt">
+	<tnt:ToolHeader>
+		<Button text="Sign Out" press=".onSignOutPress" type="Ghost">
+		</Button>
+	</tnt:ToolHeader>
+</mvc:View>

@@ -83,6 +83,21 @@
           "name": "Home",
           "pattern": "",
           "target": "home"
+        },
+        {
+          "name": "login",
+          "pattern": "login",
+          "target": "login"
+        },
+        {
+          "name": "dashboard",
+          "pattern": "dashboard",
+          "target": "dashboard"
+        },
+        {
+          "name": "user",
+          "pattern": "user",
+          "target": "user"
         }
       ],
       "targets": {
@@ -97,6 +112,24 @@
           "viewLevel": 2,
           "viewId": "home",
           "viewName": "Home"
+        },
+        "login": {
+          "viewType": "XML",
+          "viewLevel": 3,
+          "viewId": "login",
+          "viewName": "Login"
+        },
+        "dashboard": {
+          "viewType": "XML",
+          "viewLevel": 4,
+          "viewId": "dashboard",
+          "viewName": "Dashboard"
+        },
+        "user": {
+          "viewType": "XML",
+          "viewLevel": 5,
+          "viewId": "user",
+          "viewName": "User"
         },
         "notFound": {
           "viewId": "notFound",
