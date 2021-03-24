@@ -1,36 +1,39 @@
-<mvc:View controllerName="sap.btp.myUI5App.controller.User"
+<mvc:View controllerName="sap.btp.myUI5App.controller.Supervisor"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" displayBlock="true">
-	<App id="user">
+	<App id="supervisor">
 		<pages >
-			<Page title="{i18n>userPageHeader}">
+			<Page title="{i18n>supervisorPageHeader}">
 				<content >
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
-					<MessageStrip text="{i18n>userNavigateRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
+					<MessageStrip text="{i18n>supervisorNavigateRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 					<Panel class="sapUiResponsiveMargin" width="auto">
-						<Button text="Create Travel Request" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/>
-						<Table items="{/requests}" id="requestTable">
+						<Table items="{/requests}" id="supervisorRequestTable" noDataText="Currently, there is no requests.">
 							<headerToolbar>
 								<Toolbar>
 									<content>
-										<Title text="{i18n>userRequests}" level="H2"/>
+										<Title text="{i18n>supervisorRequests}" level="H2"/>
 									</content>
 								</Toolbar>
 							</headerToolbar>
 							<columns>
 								<Column>
-									<Text text="{i18n>userDestination}"/>
+									<Text text="{i18n>supervisorNameFromWorker}"/>
 								</Column>
 								<Column>
-									<Text text="{i18n>userDateRange}"/>
+									<Text text="{i18n>supervisorWorkerDestination}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>supervisorWorkerDateRange}"/>
 								</Column>
 								<Column>
 									<Text text="{i18n>userStatus}"/>
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem type="{= ${status} === 'Approved' ? 'Navigation' : 'Inactive'}">
+								<ColumnListItem type="{= ${status} === 'Pending' ? 'Navigation' : 'Inactive'}">
 									<cells>
+										<Text text="{fullName}"/>
 										<Text text="{destination}"/>
 										<Text text="{dateRange}"/>
 										<ObjectStatus text="{status}" state="{= ${status} === 'Approved' ? 'Success' : ${status} === 'Pending' ? 'Warning' : 'Error'}" icon="{= ${status} === 'Approved' ? 'sap-icon://accept' : ${status} === 'Pending' ? 'sap-icon://pending' : 'sap-icon://decline'}"/>

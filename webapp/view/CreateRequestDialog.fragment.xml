@@ -1,0 +1,20 @@
+<c:FragmentDefinition xmlns="sap.m"
+	xmlns:c="sap.ui.core">
+	<Dialog id="requestDialog" title="Create Request" icon="sap-icon://create-form">
+		<VBox class="sapUiTinyMargin">
+			<Label text="Full Name" labelFor="full-name-input" />
+			<Input type="Text" placeholder="Full Name..." valueLiveUpdate="true" value="" id="full-name-input" required="true" liveChange=".onFullNameChange" />
+			<Label text="Destination" labelFor="destination-input"/>
+			<Input type="Text" placeholder="Destination..." value="" required="true" id="destination-input" liveChange=".onDestinationChange"/>
+			<Label text="Date Range" labelFor="date-pick"/>
+			<DateRangeSelection width="100%" id="date-pick" required="true" change=".onDateChange"/>
+		</VBox>
+
+		<beginButton>
+			<Button text="Cancel" press=".onCloseDialog" type="Reject" />
+		</beginButton>
+		<endButton>
+			<Button text="Submit" type="Accept" press=".onSubmitRequest"></Button>
+		</endButton>
+	</Dialog>
+</c:FragmentDefinition>

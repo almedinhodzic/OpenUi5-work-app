@@ -4,41 +4,9 @@
 	<App id="dashboard">
 
 		<pages>
-			<Page title="{i18n>title}">
+			<Page title="">
 				<content>
-					<MessageStrip text="{i18n>fbSecurityRules}" type="Warning" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 
-					<Table id="userTable" items="{/users}">
-						<headerToolbar>
-							<Toolbar>
-								<content>
-									<Title text="Users" level="H2"/>
-								</content>
-							</Toolbar>
-						</headerToolbar>
-						<columns>
-							<Column>
-								<Text text="Name"/>
-							</Column>
-							<Column>
-								<Text text="Last Name"/>
-							</Column>
-							<Column>
-								<Text text="Role"/>
-							</Column>
-
-						</columns>
-						<items>
-							<ColumnListItem>
-								<cells>
-									<Text text="{name}"/>
-									<Text text="{lastName}"/>
-									<Text text="{role}"/>
-
-								</cells>
-							</ColumnListItem>
-						</items>
-					</Table>
 				</content>
 			</Page>
 		</pages>

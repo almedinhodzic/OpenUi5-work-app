@@ -9,9 +9,7 @@ sap.ui.define(
         const sPassword = this.getView().byId("input-pw").getValue();
         console.log(sEmail, sPassword);
         try {
-          const user = await firebase
-            .auth()
-            .signInWithEmailAndPassword(sEmail, sPassword);
+          await firebase.auth().signInWithEmailAndPassword(sEmail, sPassword);
           this.getRouter().navTo("dashboard");
         } catch (error) {
           MessageBox.error("Invalid Credentials");

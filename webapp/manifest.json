@@ -98,6 +98,11 @@
           "name": "user",
           "pattern": "user",
           "target": "user"
+        },
+        {
+          "name": "supervisor",
+          "pattern": "supervisor",
+          "target": "supervisor"
         }
       ],
       "targets": {
@@ -130,6 +135,12 @@
           "viewLevel": 5,
           "viewId": "user",
           "viewName": "User"
+        },
+        "supervisor": {
+          "viewType": "XML",
+          "viewLevel": 5,
+          "viewId": "supervisor",
+          "viewName": "Supervisor"
         },
         "notFound": {
           "viewId": "notFound",
