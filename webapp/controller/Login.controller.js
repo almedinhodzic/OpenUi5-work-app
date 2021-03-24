@@ -12,8 +12,6 @@ sap.ui.define(
           const user = await firebase
             .auth()
             .signInWithEmailAndPassword(sEmail, sPassword);
-          const user1 = user.user;
-          console.log(user1);
           this.getRouter().navTo("dashboard");
         } catch (error) {
           MessageBox.error("Invalid Credentials");

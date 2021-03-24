@@ -1,5 +1,47 @@
-<mvc:View controllerName=""
+<mvc:View controllerName="sap.btp.myUI5App.controller.User"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" displayBlock="true">
-	<Text text="User" />
+	<App>
+		<pages>
+			<Page title="{i18n>userPageHeader}">
+				<content>
+					<Table items="{/requests}">
+						<headerToolbar>
+							<Toolbar>
+								<content>
+									<Title text="{i18n>userRequests}" level="H2"/>
+								</content>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>userFrom}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>userTo}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>Status}"/>
+							</Column>
+
+						</columns>
+						<items>
+							<ColumnListItem type="{= ${status} === 'Approved' ? 'Navigation' : 'Inactive'}">
+								<cells>
+									<Text text="{from}"/>
+									<Text text="{to}"/>
+
+									<ObjectStatus text="{status}" state="{= ${status} === 'Approved' ? 'Success' : ${status} === 'Pending' ? 'Warning' : 'Error'}" icon="{= ${status} === 'approved' ? 'sap-icon://accept' : ${status} === 'pending' ? 'sap-icon://pending' : 'sap-icon://decline'}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+
+			</Page>
+		</pages>
+	</App>
+
+
+
 </mvc:View>
