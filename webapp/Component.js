@@ -21,7 +21,7 @@ sap.ui.define(
         this.getRouter().initialize();
 
         // firebase init
-        // initializa firebase
+        // initialize firebase
         this.setModel(Firebase.initializeFirebase(), "firebase");
       },
     });

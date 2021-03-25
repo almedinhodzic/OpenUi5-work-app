@@ -7,10 +7,12 @@ sap.ui.define(
   function (Controller, BaseController, JSONModel) {
     "use strict";
 
-    return BaseController.extend("sap.btp.myUI5App.controller.Supervisor", {
+    return BaseController.extend("sap.btp.myUI5App.controller.Admin", {
       onInit: function () {
         const db = firebase.firestore();
-        const requestsRef = db.collection("requests");
+        const requestsRef = db
+          .collection("requests")
+          .where("status", "==", "Approved");
         const oRequests = {
           requests: [],
         };
@@ -48,18 +50,9 @@ sap.ui.define(
           });
           this.getView().getModel().refresh(true);
           this.getView()
-            .byId("supervisorRequestTable")
+            .byId("adminRequestTable")
             .getBinding("items")
             .refresh();
-        });
-      },
-      onPress: function (oEvent) {
-        var oItem, oCtx;
-        oItem = oEvent.getSource();
-        console.log(oItem);
-        oCtx = oItem.getBindingContext();
-        this.getRouter().navTo("review", {
-          requestId: oItem.getBindingContext().getObject().status,
         });
       },
     });

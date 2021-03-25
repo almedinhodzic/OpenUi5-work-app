@@ -103,6 +103,16 @@
           "name": "supervisor",
           "pattern": "supervisor",
           "target": "supervisor"
+        },
+        {
+          "name": "review",
+          "pattern": "supervisor/{requestId}",
+          "target": "review"
+        },
+        {
+          "name": "admin",
+          "pattern": "admin",
+          "target": "admin"
         }
       ],
       "targets": {
@@ -141,6 +151,18 @@
           "viewLevel": 5,
           "viewId": "supervisor",
           "viewName": "Supervisor"
+        },
+        "admin": {
+          "viewType": "XML",
+          "viewLevel": 5,
+          "viewId": "admin",
+          "viewName": "Admin"
+        },
+        "review": {
+          "viewType": "XML",
+          "viewLevel": 6,
+          "viewId": "review",
+          "viewName": "Review"
         },
         "notFound": {
           "viewId": "notFound",

@@ -7,9 +7,6 @@ sap.ui.define(
       getRouter: function () {
         return UIComponent.getRouterFor(this);
       },
-      db: function () {
-        return firebase.firestore();
-      },
     });
   }
 );

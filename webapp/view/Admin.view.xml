@@ -1,0 +1,50 @@
+<mvc:View controllerName="sap.btp.myUI5App.controller.Admin"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" displayBlock="true">
+	<App id="admin">
+		<pages >
+			<Page title="Approved requests">
+				<content >
+					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
+					<MessageStrip text="You can click on request which are not finished." type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
+					<Panel class="sapUiResponsiveMargin" width="auto">
+						<!-- <Button text="Create User" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/> -->
+						<Table items="{/requests}" id="adminRequestTable">
+							<headerToolbar>
+								<Toolbar>
+									<content>
+										<Title text="Prepare Documentation" level="H2"/>
+									</content>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column >
+									<Text text="Worker Full Name"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>userDestination}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>userDateRange}"/>
+								</Column>
+								<Column>
+									<Text text="Documentation Status"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="{= ${documentation} === 'Preparing' ? 'Navigation' : 'Inactive'}">
+									<cells>
+										<Text text="{fullName}"/>
+										<Text text="{destination}"/>
+										<Text text="{dateRange}"/>
+										<ObjectStatus text="{documentation}" state="{= ${documentation} === 'Finished' ? 'Success' :  'Warning' }" icon="{= ${documentation} === 'Finished' ? 'sap-icon://accounting-document-verification' : 'sap-icon://order-status'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
