@@ -22,7 +22,7 @@ sap.ui.define(
 
         // firebase init
         // initialize firebase
-        this.setModel(Firebase.initializeFirebase(), "firebase");
+        this.setModel(Firebase.initializeFirebase());
       },
     });
   }

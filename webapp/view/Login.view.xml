@@ -7,11 +7,11 @@
       <pages>
         <Page title="LOGIN INTO YOUR ACCOUNT">
           <l:VerticalLayout class="sapUiContentPadding" width="100%">
-            <Label text="Email" labelFor="input-email" />
-            <Input id="input-email" required="true" type="Email" valueLiveUpdate="true" value="" placeholder="Your Email..."/>
-            <Label text="Password" labelFor="input-pw" />
-            <Input id="input-pw" required="true" type="Password" placeholder="Your Password..." value="" valueLiveUpdate="true" />
-            <Button text="LOGIN" press=".onLoginClick" type="Emphasized"/>
+            <Label text="{i18n>emailLabel}" labelFor="input-email" />
+            <Input id="input-email" required="true" type="Email" valueLiveUpdate="true" value="" placeholder="{i18n>inputEmailPlaceholder}"/>
+            <Label text="{i18n>passwordLabel}" labelFor="input-pw" />
+            <Input id="input-pw" required="true" type="Password" placeholder="{i18n>inputPasswordPlaceholder}" value="" valueLiveUpdate="true" />
+            <Button text="{i18n>loginButton}" press=".onLoginClick" type="Emphasized"/>
           </l:VerticalLayout>
         </Page>
       </pages>

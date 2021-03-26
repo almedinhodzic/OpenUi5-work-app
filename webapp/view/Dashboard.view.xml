@@ -4,9 +4,9 @@
 	<App id="dashboard">
 
 		<pages>
-			<Page title="">
+			<Page title="Dashboard">
 				<content>
-
+					<Panel headerText="Welcome to your dashboard Almedin"></Panel>
 				</content>
 			</Page>
 		</pages>

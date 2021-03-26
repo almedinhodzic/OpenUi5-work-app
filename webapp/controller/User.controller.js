@@ -4,15 +4,23 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
+    "sap/ui/core/BusyIndicator",
   ],
-  function (Controller, JSONModel, Fragment, MessageBox) {
+  function (
+    Controller,
+    JSONModel,
+    Fragment,
+    MessageBox,
+
+    BusyIndicator
+  ) {
     "use strict";
 
     return Controller.extend("sap.btp.myUI5App.controller.User", {
       onInit: function () {
         const db = firebase.firestore();
         const fnGetRequestsById = async (user) => {
-          const requestsRef = db
+          const requestsRef = await db
             .collection("requests")
             .where("userId", "==", user.uid);
           const oRequests = {
@@ -29,6 +37,7 @@ sap.ui.define(
         firebase.auth().onAuthStateChanged(fnGetRequestsById);
       },
       getRealTimeRequests: function (requestsRef) {
+        BusyIndicator.show(0);
         requestsRef.onSnapshot((snapshot) => {
           const requestsModel = this.getView().getModel();
           const requestsData = requestsModel.getData();
@@ -55,6 +64,7 @@ sap.ui.define(
           });
           this.getView().getModel().refresh(true);
           this.getView().byId("requestTable").getBinding("items").refresh();
+          BusyIndicator.hide();
         });
       },
       onOpenDialog: function () {
@@ -93,6 +103,7 @@ sap.ui.define(
             email: user.email,
             dateRange: sDateRange,
             status: "Pending",
+            id: requestsRef.doc().id,
           });
         };
         if (sFullName === "" || sDestination === "" || sDateRange === "") {

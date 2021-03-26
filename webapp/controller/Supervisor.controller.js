@@ -1,10 +1,6 @@
 sap.ui.define(
-  [
-    "sap/ui/core/mvc/Controller",
-    "sap/btp/myUI5App/controller/BaseController",
-    "sap/ui/model/json/JSONModel",
-  ],
-  function (Controller, BaseController, JSONModel) {
+  ["sap/btp/myUI5App/controller/BaseController", "sap/ui/model/json/JSONModel"],
+  function (BaseController, JSONModel) {
     "use strict";
 
     return BaseController.extend("sap.btp.myUI5App.controller.Supervisor", {
@@ -59,7 +55,7 @@ sap.ui.define(
         console.log(oItem);
         oCtx = oItem.getBindingContext();
         this.getRouter().navTo("review", {
-          requestId: oItem.getBindingContext().getObject().status,
+          requestId: oCtx.getProperty("id"),
         });
       },
     });

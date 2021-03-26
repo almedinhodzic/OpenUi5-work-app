@@ -3,32 +3,31 @@
 	xmlns="sap.m" displayBlock="true">
 	<App id="admin">
 		<pages >
-			<Page title="Approved requests">
+			<Page title="{i18n>adminPageHeader}">
 				<content >
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
-					<MessageStrip text="You can click on request which are not finished." type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
+					<MessageStrip text="{i18n>adminNavigationRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 					<Panel class="sapUiResponsiveMargin" width="auto">
-						<!-- <Button text="Create User" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/> -->
 						<Table items="{/requests}" id="adminRequestTable">
 							<headerToolbar>
 								<Toolbar>
 									<content>
-										<Title text="Prepare Documentation" level="H2"/>
+										<Title text="{i18n>adminRequests}" level="H2"/>
 									</content>
 								</Toolbar>
 							</headerToolbar>
 							<columns>
 								<Column >
-									<Text text="Worker Full Name"/>
+									<Text text="{i18n>adminNameFromWorker}"/>
 								</Column>
 								<Column>
-									<Text text="{i18n>userDestination}"/>
+									<Text text="{i18n>adminWorkerDestination}"/>
 								</Column>
 								<Column>
-									<Text text="{i18n>userDateRange}"/>
+									<Text text="{i18n>adminWorkerDateRange}"/>
 								</Column>
 								<Column>
-									<Text text="Documentation Status"/>
+									<Text text="{i18n>adminStatus}"/>
 								</Column>
 							</columns>
 							<items>

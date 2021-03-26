@@ -1,7 +1,7 @@
 <mvc:View controllerName="sap.btp.myUI5App.controller.Review"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" displayBlock="true" busyIndicatorDelay="0">
-	<Page title="{requests/status}">
+	<Page title="{status}">
 
 	</Page>
 </mvc:View>

@@ -11,11 +11,11 @@ sap.ui.define(
       _onRouteMatched: function (oEvent) {
         var oArgs, oView;
         oArgs = oEvent.getParameter("arguments").requestId;
-
+        console.log(oArgs);
         oView = this.getView();
 
         oView.bindElement({
-          path: "/requests(" + oArgs.requestId + ")",
+          path: "/requests" + oArgs,
           events: {
             change: this._onBindingChange.bind(this),
             dataRequested: function (oEvent) {

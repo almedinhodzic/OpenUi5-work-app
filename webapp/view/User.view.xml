@@ -9,7 +9,7 @@
 					<MessageStrip text="{i18n>userNavigateRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 					<Panel class="sapUiResponsiveMargin" width="auto">
 						<Button text="Create Travel Request" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/>
-						<Table items="{/requests}" id="requestTable">
+						<Table items="{/requests}" id="requestTable" noDataText="{i18n>noRequestsData}">
 							<headerToolbar>
 								<Toolbar>
 									<content>
