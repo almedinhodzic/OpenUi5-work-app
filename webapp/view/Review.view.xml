@@ -1,7 +1,36 @@
 <mvc:View controllerName="sap.btp.myUI5App.controller.Review"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m" displayBlock="true" busyIndicatorDelay="0">
-	<Page title="{status}">
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form" displayBlock="true" busyIndicatorDelay="0">
+	<App >
+		<pages>
+			<Page showNavButton="true" navButtonPress="onNavBack">
+				<f:SimpleForm title="Request" class="sapUiResponsiveMargin" width="auto">
+					<Label text="Name"/>
+					<Text text="{/request/fullName}"/>
+					<Label text="Destination"/>
+					<Text text="{/request/destination}"/>
+					<Label text="Date Range"/>
+					<Text text="{/request/dateRange}"/>
+				</f:SimpleForm>
+				<OverflowToolbar class="sapUiResponsiveMargin" width="auto">
+					<ToolbarSpacer/>
+					<Button type="Accept" text="Approve" press=".onApproveDialogPress">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+					</Button>
+					<Button type="Reject" text="Reject" press=".onRejectDialogPress">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+					</Button>
 
-	</Page>
+
+				</OverflowToolbar>
+			</Page>
+		</pages>
+
+	</App>
+
 </mvc:View>

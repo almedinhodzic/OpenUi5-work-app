@@ -5,31 +5,34 @@ sap.ui.define(
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/ui/core/BusyIndicator",
+    "sap/f/library",
   ],
   function (
     Controller,
     JSONModel,
     Fragment,
     MessageBox,
-
-    BusyIndicator
+    BusyIndicator,
+    fioriLibrary
   ) {
     "use strict";
 
     return Controller.extend("sap.btp.myUI5App.controller.User", {
       onInit: function () {
+        this.oView = this.getView();
         const db = firebase.firestore();
         const fnGetRequestsById = async (user) => {
           const requestsRef = await db
             .collection("requests")
             .where("userId", "==", user.uid);
+
           const oRequests = {
             requests: [],
           };
 
           const requestModel = new JSONModel(oRequests);
 
-          this.getView().setModel(requestModel);
+          this.oView.setModel(requestModel);
 
           this.getRealTimeRequests(requestsRef);
         };

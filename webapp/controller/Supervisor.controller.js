@@ -5,8 +5,8 @@ sap.ui.define(
 
     return BaseController.extend("sap.btp.myUI5App.controller.Supervisor", {
       onInit: function () {
-        const db = firebase.firestore();
-        const requestsRef = db.collection("requests");
+        this.db = firebase.firestore();
+        const requestsRef = this.db.collection("requests");
         const oRequests = {
           requests: [],
         };
@@ -57,6 +57,15 @@ sap.ui.define(
         this.getRouter().navTo("review", {
           requestId: oCtx.getProperty("id"),
         });
+      },
+      onItemDelete: async function (oEvent) {
+        const oItem = oEvent.getSource();
+        const oCtx = oItem.getBindingContext();
+        console.log(oCtx.getProperty("id"));
+        await this.db
+          .collection("requests")
+          .doc(oCtx.getProperty("id"))
+          .delete();
       },
     });
   }

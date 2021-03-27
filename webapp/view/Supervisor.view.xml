@@ -1,6 +1,7 @@
 <mvc:View controllerName="sap.btp.myUI5App.controller.Supervisor"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m" displayBlock="true">
+	xmlns="sap.m" displayBlock="true"
+	xmlns:c="sap.ui.core">
 	<App id="supervisor">
 		<pages >
 			<Page title="{i18n>supervisorPageHeader}">
@@ -29,6 +30,7 @@
 								<Column>
 									<Text text="{i18n>userStatus}"/>
 								</Column>
+								<Column />
 							</columns>
 							<items>
 								<ColumnListItem type="{= ${status} === 'Pending' ? 'Navigation' : 'Inactive'}" press=".onPress">
@@ -37,6 +39,7 @@
 										<Text text="{destination}"/>
 										<Text text="{dateRange}"/>
 										<ObjectStatus text="{status}" state="{= ${status} === 'Approved' ? 'Success' : ${status} === 'Pending' ? 'Warning' : 'Error'}" icon="{= ${status} === 'Approved' ? 'sap-icon://accept' : ${status} === 'Pending' ? 'sap-icon://pending' : 'sap-icon://decline'}"/>
+										<c:Icon src="sap-icon://delete" hoverColor="darkred" visible="{= ${status} === 'Rejected' ? true : false}" color="red" press=".onItemDelete"/>
 									</cells>
 								</ColumnListItem>
 							</items>
