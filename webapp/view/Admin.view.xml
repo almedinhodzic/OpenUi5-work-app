@@ -31,7 +31,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem type="{= ${documentation} === 'Preparing' ? 'Navigation' : 'Inactive'}">
+								<ColumnListItem type="{= ${documentation} === 'Preparing' ? 'Navigation' : 'Inactive'}" press=".onPress">
 									<cells>
 										<Text text="{fullName}"/>
 										<Text text="{destination}"/>

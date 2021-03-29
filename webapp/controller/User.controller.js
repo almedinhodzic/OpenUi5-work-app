@@ -5,16 +5,8 @@ sap.ui.define(
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/ui/core/BusyIndicator",
-    "sap/f/library",
   ],
-  function (
-    Controller,
-    JSONModel,
-    Fragment,
-    MessageBox,
-    BusyIndicator,
-    fioriLibrary
-  ) {
+  function (Controller, JSONModel, Fragment, MessageBox, BusyIndicator) {
     "use strict";
 
     return Controller.extend("sap.btp.myUI5App.controller.User", {
@@ -106,7 +98,7 @@ sap.ui.define(
             email: user.email,
             dateRange: sDateRange,
             status: "Pending",
-            id: requestsRef.doc().id,
+            reqId: requestsRef.doc().id,
           });
         };
         if (sFullName === "" || sDestination === "" || sDateRange === "") {

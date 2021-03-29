@@ -55,6 +55,16 @@ sap.ui.define(
             .refresh();
         });
       },
+      onPress: function (oEvent) {
+        var oItem, oCtx;
+        oItem = oEvent.getSource();
+        console.log(oItem);
+        oCtx = oItem.getBindingContext();
+        this.getRouter().navTo("documentation", {
+          docId: oCtx.getProperty("reqId"),
+          reqId: oCtx.getProperty("id"),
+        });
+      },
     });
   }
 );

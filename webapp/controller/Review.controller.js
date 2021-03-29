@@ -35,7 +35,12 @@ sap.ui.define(
         const doc = await requestRef.get();
         console.log(doc.data());
         const request = doc.data();
-        console.log(request);
+        console.log(request.reqId);
+        this.id = request.reqId;
+        this.fullName = request.fullName;
+        this.destination = request.destination;
+        this.dateRange = request.dateRange;
+        this.email = request.email;
         if (request === undefined) {
           this.getRouter().navTo("notFound");
         } else {
@@ -49,12 +54,32 @@ sap.ui.define(
       onApprove: async function () {
         await this.requestRef.update({
           status: "Approved",
+          documentation: "Preparing",
         });
-        const newDocument = this.db.collection("documentation").doc();
+        const newDocument = this.db.collection("documentation").doc(this.id);
         await newDocument.set({
-          id: this.oArgs,
-          hotel: "",
-          hotelStatus: "preparing",
+          fullName: this.fullName,
+          destination: this.destination,
+          dateRange: this.dateRange,
+          email: this.email,
+          documentationStatus: "Preparing",
+          hotelName: "",
+          hotelAddress: "",
+          hotelStreetNum: "",
+          hotelPaid: false,
+          hotelReservationInProgress: true,
+          hotelStatus: "Preparing",
+          typeOfTransport: "",
+          transportPaid: false,
+          transportStatus: "Preparing",
+          transportReservationInProgress: true,
+          insuranceCompany: "",
+          insurancePaid: false,
+          insuranceStatus: "Preparing",
+          paperWorkStatus: "Preparing",
+          insuranceReservationInProgress: true,
+          documentationStatus: "Preparing",
+          documentationUploadInProgress: true,
         });
         this.getRouter().navTo("supervisor");
       },

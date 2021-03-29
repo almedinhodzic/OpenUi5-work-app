@@ -113,6 +113,11 @@
           "name": "admin",
           "pattern": "admin",
           "target": "admin"
+        },
+        {
+          "name": "documentation",
+          "pattern": "admin/{reqId}/{docId}",
+          "target": "documentation"
         }
       ],
       "targets": {
@@ -163,6 +168,12 @@
           "viewLevel": 6,
           "viewId": "review",
           "viewName": "Review"
+        },
+        "documentation": {
+          "viewType": "XML",
+          "viewLevel": 6,
+          "viewId": "documentation",
+          "viewName": "Documentation"
         },
         "notFound": {
           "viewId": "notFound",
