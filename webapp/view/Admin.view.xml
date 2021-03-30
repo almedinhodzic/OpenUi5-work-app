@@ -8,7 +8,7 @@
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
 					<MessageStrip text="{i18n>adminNavigationRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 					<Panel class="sapUiResponsiveMargin" width="auto">
-						<Table items="{/requests}" id="adminRequestTable">
+						<Table items="{/requests}" id="adminRequestTable" noDataText="Currently, no approved requests.">
 							<headerToolbar>
 								<Toolbar>
 									<content>
@@ -23,7 +23,7 @@
 								<Column>
 									<Text text="{i18n>adminWorkerDestination}"/>
 								</Column>
-								<Column>
+								<Column minScreenWidth="Tablet">
 									<Text text="{i18n>adminWorkerDateRange}"/>
 								</Column>
 								<Column>

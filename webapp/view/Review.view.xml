@@ -5,6 +5,7 @@
 	<App >
 		<pages>
 			<Page showNavButton="true" navButtonPress="onNavBack">
+				<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
 				<f:SimpleForm title="Request" class="sapUiResponsiveMargin" width="auto">
 					<Label text="Name"/>
 					<Text text="{/request/fullName}"/>

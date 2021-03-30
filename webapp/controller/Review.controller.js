@@ -80,6 +80,7 @@ sap.ui.define(
           insuranceReservationInProgress: true,
           documentationStatus: "Preparing",
           documentationUploadInProgress: true,
+          paymentInProgress: true,
         });
         this.getRouter().navTo("supervisor");
       },

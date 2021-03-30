@@ -10,6 +10,7 @@ sap.ui.define(
 
     return BaseController.extend("sap.btp.myUI5App.controller.Documentation", {
       onInit: function () {
+        BusyIndicator.show(0);
         this.db = firebase.firestore();
         this.oView = this.getView();
         const oRouter = this.getRouter();
@@ -18,7 +19,6 @@ sap.ui.define(
           .attachMatched(this._onRouteMatched, this);
       },
       _onRouteMatched: async function (oEvent) {
-        BusyIndicator.show(0);
         const oArgs = oEvent.getParameter("arguments").docId;
         console.log(oArgs);
         this.oArgs = oArgs;
@@ -28,14 +28,23 @@ sap.ui.define(
         console.log(reqId);
         this.requestRef = requestRef;
         this.documentationRef = documentationRef;
-        const doc = await documentationRef.get();
-        this.document = doc.data();
+        // const doc = await documentationRef.get();
+        // this.document = doc.data();
+        const oDocument = {
+          document: {},
+        };
+        const docModel = new JSONModel(oDocument);
+        this.oView.setModel(docModel);
+        this.onDataRefresh(documentationRef);
+      },
+      onDataRefresh: function (documentationRef) {
         documentationRef.onSnapshot((docSnap) => {
-          const oDocument = {
-            document: docSnap.data(),
-          };
-          const docModel = new JSONModel(oDocument);
-          this.oView.setModel(docModel);
+          const docModel = this.oView.getModel();
+          const docData = docModel.getData();
+          docData.document = docSnap.data();
+          this.document = docData.document;
+          console.log(docData.document);
+          this.getView().getModel().refresh(true);
           BusyIndicator.hide();
         });
       },
@@ -43,45 +52,72 @@ sap.ui.define(
         const sHotelName = this.oView.byId("hotel-name").getValue();
         const sHotelAddress = this.oView.byId("hotel-address").getValue();
         const sHotelStreetNum = this.oView.byId("hotel-street-num").getValue();
+        if (sHotelName && sHotelAddress && sHotelStreetNum) {
+          await this.documentationRef.update({
+            hotelName: sHotelName,
+            hotelAddress: sHotelAddress,
+            hotelStreetNum: sHotelStreetNum,
+            hotelStatus: "Finished",
+            hotelReservationInProgress: false,
+          });
+        } else {
+          MessageBox.warning(
+            "Please fill all informations about hotel to proceed."
+          );
+        }
+      },
+      onHotelReservationReset: async function () {
         await this.documentationRef.update({
-          hotelName: sHotelName,
-          hotelAddress: sHotelAddress,
-          hotelStreetNum: sHotelStreetNum,
-          hotelStatus: "Finished",
-          hotelReservationInProgress: false,
+          hotelReservationInProgress: true,
         });
-        console.log("done");
       },
       onTransportReservationFinish: async function () {
         const sTransport = this.oView.byId("transport").getSelectedKey();
+        if (sTransport !== "Empty") {
+          await this.documentationRef.update({
+            typeOfTransport: sTransport,
+            transportReservationInProgress: false,
+            transportStatus: "Finished",
+          });
+        } else {
+          MessageBox.warning("Please choose type of transport.");
+        }
+      },
+      onTransportReservationReset: async function () {
         await this.documentationRef.update({
-          typeOfTransport: sTransport,
-          transportReservationInProgress: false,
-          transportStatus: "Finished",
+          transportReservationInProgress: true,
         });
-        console.log("done");
-				console.log(this.document);
-				
       },
       onInsuranceReservationFinish: async function () {
         const sInsurance = this.oView.byId("insurance-company").getValue();
+        if (sInsurance) {
+          await this.documentationRef.update({
+            insuranceCompany: sInsurance,
+            insuranceReservationInProgress: false,
+            insuranceStatus: "Finished",
+          });
+        } else {
+          MessageBox.warning("Please type name of Insurance Company");
+        }
+      },
+      onInsuranceReservationReset: async function () {
         await this.documentationRef.update({
-          insuranceCompany: sInsurance,
-          insuranceReservationInProgress: false,
-          insuranceStatus: "Finished",
+          insuranceReservationInProgress: true,
         });
-        console.log("done");
       },
       onPaperWorkUpload: async function () {
         await this.documentationRef.update({
           paperWorkStatus: "Finished",
           documentationUploadInProgress: false,
         });
-        console.log("done");
+      },
+      onPaperWorkReset: async function () {
+        await this.documentationRef.update({
+          documentationUploadInProgress: true,
+        });
       },
       onPayment: async function () {
         const bHotelPayment = this.getView().byId("hotel-payment").getState();
-        console.log(this.document);
         if (
           !this.document.transportReservationInProgress &&
           !this.document.insuranceReservationInProgress &&
@@ -93,10 +129,14 @@ sap.ui.define(
             transportPaid: true,
             paymentInProgress: false,
           });
-          console.log("done");
         } else {
-          console.log("cant");
+          MessageBox.warning("You have to do all reservations first");
         }
+      },
+      onPaymentReset: async function () {
+        await this.documentationRef.update({
+          paymentInProgress: true,
+        });
       },
       onFinish: async function () {
         if (

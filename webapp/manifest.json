@@ -100,6 +100,11 @@
           "target": "user"
         },
         {
+          "name": "documentStatus",
+          "pattern": "user/{docId}",
+          "target": "documentStatus"
+        },
+        {
           "name": "supervisor",
           "pattern": "supervisor",
           "target": "supervisor"
@@ -151,6 +156,7 @@
           "viewId": "user",
           "viewName": "User"
         },
+
         "supervisor": {
           "viewType": "XML",
           "viewLevel": 5,
@@ -162,6 +168,12 @@
           "viewLevel": 5,
           "viewId": "admin",
           "viewName": "Admin"
+        },
+        "documentStatus": {
+          "viewType": "XML",
+          "viewLevel": 6,
+          "viewId": "documentStatus",
+          "viewName": "DocumentStatus"
         },
         "review": {
           "viewType": "XML",

@@ -21,7 +21,7 @@
 								<Column>
 									<Text text="{i18n>userDestination}"/>
 								</Column>
-								<Column>
+								<Column minScreenWidth="Tablet">
 									<Text text="{i18n>userDateRange}"/>
 								</Column>
 								<Column>
@@ -29,7 +29,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem type="{= ${status} === 'Approved' ? 'Navigation' : 'Inactive'}">
+								<ColumnListItem type="{= ${status} === 'Approved' ? 'Navigation' : 'Inactive'}" press=".onPress">
 									<cells>
 										<Text text="{destination}"/>
 										<Text text="{dateRange}"/>

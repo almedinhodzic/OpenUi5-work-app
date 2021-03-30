@@ -1,0 +1,22 @@
+<mvc:View controllerName="sap.btp.myUI5App.controller.DocumentStatus"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" height="100%" busyIndicatorDelay="0">
+	<App id="documentStatus">
+		<pages>
+			<Page showNavButton="true" navButtonPress="onNavBack" title="Travel to {/document/destination}">
+				<content>
+					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
+					<List class="sapUiResponsiveMargin" width="auto" headerText="Documentation Status">
+						<StandardListItem title="Hotel Reservation" icon="sap-icon://addresses" infoState="{= ${/document/hotelStatus} === 'Finished' ? 'Success' :  'Warning' }" info="{/document/hotelStatus}" />
+						<StandardListItem title="Transport Reservation" icon="sap-icon://bus-public-transport" infoState="{= ${/document/transportStatus} === 'Finished' ? 'Success' :  'Warning' }" info="{/document/transportStatus}" />
+						<StandardListItem title="Insurance" infoState="{= ${/document/insuranceStatus} === 'Finished' ? 'Success' :  'Warning' }" info="{/document/insuranceStatus}" icon="sap-icon://insurance-house"/>
+						<StandardListItem title="Paperwork" infoState="{= ${/document/paperWorkStatus} === 'Finished' ? 'Success' :  'Warning' }" info="{/document/paperWorkStatus}" icon="sap-icon://print"/>
+						<StandardListItem title="Payments" infoState="{= ${/document/transportPaid} === true ? 'Success' :  'Warning' }" info="{= ${/document/transportPaid} === true ? 'Paid' :  'Still not paid' }" icon="sap-icon://simple-payment"/>
+						<StandardListItem title="Hotel payed before travel" infoState="{= ${/document/hotelPaid} === true ? 'Success' :  'Error' }" info="{= ${/document/hotelPaid} === true ? 'Paid' :  'Not paid' }" icon="sap-icon://payment-approval"/>
+						<StandardListItem title="All documentation ready" infoState="{= ${/document/documentationStatus} === 'Finished' ? 'Success' :  'Warning' }" info="{/document/documentationStatus}" icon="sap-icon://complete"/>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -5,112 +5,120 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core"
 	xmlns:u="sap.ui.unified">
+	<App id="destination">
+		<pages>
+			<Page title="Preparing documentation for {/document/fullName}" showNavButton="true" navButtonPress="onNavBack">
+				<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
+				<VBox class="sapUiSmallMargin">
+					<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Documentation" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+						<f:content>
+							<!-- User Infos -->
+							<core:Title text="User Informations" />
+							<Label text="Full Name" />
+							<Input value="{/document/fullName}" editable="false"/>
+							<Label text="Destination" />
+							<Input value="{/document/destination}" editable="false"/>
+							<Label text="Date Range" />
+							<Input value="{/document/dateRange}" editable="false"/>
+							<!-- Hotel Reservation -->
+							<core:Title text="Hotel" />
+							<Label text="Name of Hotel" labelFor="hotel-name"/>
+							<Input id="hotel-name" value="{/document/hotelName}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
+							<Label text="Address of hotel" labelFor="hotel-address"/>
+							<Input id="hotel-address" value="{/document/hotelAddress}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
+							<Input id="hotel-street-num" value="{/document/hotelStreetNum}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}">
+								<layoutData>
+									<l:GridData span="XL2 L1 M3 S4" />
+								</layoutData>
+							</Input>
+							<Label text="Save Changes"/>
+							<Button text="Submit" type="Emphasized" width="100%" enabled="{/document/hotelReservationInProgress}" press=".onHotelReservationFinish" />
+							<Button icon="sap-icon://decline" type="Reject" width="20%" enabled="{= ${/document/hotelReservationInProgress} === true ? false : true}" press=".onHotelReservationReset"/>
+							<!-- Transport Reservation  -->
+							<core:Title text="Transport" />
+							<Label text="Type of transport for your worker" labelFor="transport"/>
+							<Select id="transport" selectedKey="{/document/typeOfTransport}" enabled="{/document/transportReservationInProgress}">
+								<items>
+									<core:Item text="Please choose type of transport" key="Empty"/>
+									<core:Item text="Car" key="Car"/>
+									<core:Item text="Train" key="Train"/>
+									<core:Item text="Plane" key="Plane"/>
+									<core:Item text="Bus" key="Bus"/>
+								</items>
+							</Select>
+							<Label text="Save Changes"/>
+							<Button text="Submit" type="Emphasized" width="100%" enabled="{/document/transportReservationInProgress}" press=".onTransportReservationFinish" />
+							<Button icon="sap-icon://decline" type="Reject" width="20%" enabled="{= ${/document/transportReservationInProgress} === true ? false : true}" press=".onTransportReservationReset"/>
 
-	<Page title="Preparing documentation for {/document/fullName}" showNavButton="true" navButtonPress="onNavBack">
-		<VBox class="sapUiSmallMargin">
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Documentation" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
-				<f:content>
-					<!-- User Infos -->
-					<core:Title text="User Informations" />
-					<Label text="Full Name" />
-					<Input value="{/document/fullName}" editable="false"/>
-					<Label text="Destination" />
-					<Input value="{/document/destination}" editable="false"/>
-					<Label text="Date Range" />
-					<Input value="{/document/dateRange}" editable="false"/>
-					<!-- Hotel Reservation -->
-					<core:Title text="Hotel" />
-					<Label text="Name of Hotel" labelFor="hotel-name"/>
-					<Input id="hotel-name" value="{/document/hotelName}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
-					<Label text="Address of hotel" labelFor="hotel-address"/>
-					<Input id="hotel-address" value="{/document/hotelAddress}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}">
-					</Input>
-					<Input id="hotel-street-num" value="{/document/hotelStreetNum}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}">
-						<layoutData>
-							<l:GridData span="XL2 L1 M3 S4" />
-						</layoutData>
-					</Input>
-					<Label text="Save Changes"/>
-					<Button text="Submit" type="Emphasized" width="40%" enabled="{/document/hotelReservationInProgress}" press=".onHotelReservationFinish"></Button>
-					<!-- Transport Reservation  -->
-					<core:Title text="Transport" />
-					<Label text="Type of transport for your worker" labelFor="transport"/>
-					<Select id="transport" selectedKey="Car" enabled="{/document/transportReservationInProgress}">
-						<items>
-							<core:Item text="Car" key="Car"/>
-							<core:Item text="Train" key="Train"/>
-							<core:Item text="Plane" key="Plane"/>
-							<core:Item text="Bus" key="Bus"/>
-						</items>
-					</Select>
-					<Label text="Save Changes"/>
-					<Button text="Submit" type="Emphasized" width="40%" enabled="{/document/transportReservationInProgress}" press=".onTransportReservationFinish"></Button>
-					<!-- Insurance Preparing -->
-					<core:Title text="Insurance" />
-					<Label text="Insurance company" labelFor="insurance-company"/>
-					<Input id="insurance-company" value="{/document/insuranceCompany}" enabled="{/document/insuranceReservationInProgress}"/>
-					<Label text="Save Changes"/>
-					<Button text="Submit" type="Emphasized" width="40%" press=".onInsuranceReservationFinish" enabled="{/document/insuranceReservationInProgress}"></Button>
-					<!-- Documentation Upload -->
-					<core:Title text="Documentation" />
-					<Label text="Upload documentation" labelFor="fileUploader"/>
-					<u:FileUploader id="fileUploader" enabled="{/document/documentationUploadInProgress}"/>
-					<Label text="Save Changes"/>
-					<Button text="Submit" type="Emphasized" width="40%" enabled="{/document/documentationUploadInProgress}" press=".onPaperWorkUpload"></Button>
-					<!-- Payment  -->
-					<core:Title text="Payment for transport, insurance and hotel" />
-					<Label text="Pay for Hotel" />
-					<Switch state="false" id="hotel-payment" enabled="{/document/paymentInProgress}"/>
-					<Label text="Vendor" />
-					<ComboBox fieldGroupIds="Credit Card" width="100%" placeholder="Choose your card vendor..." value="{CreditCardVendor}" id="CreditCardVendor" enabled="{/document/paymentInProgress}">
-						<items>
-							<core:Item text="" />
-							<core:Item text="Mastercard" />
-							<core:Item text="Visa" />
-							<core:Item text="American Express" />
-						</items>
-					</ComboBox>
-					<Label text="Credit Card Number" />
-					<Input fieldGroupIds="Credit Card" value="{CreditCardNumber}" maxLength="16" id="CreditCardNumber" enabled="{/document/paymentInProgress}"/>
-					<Label text="Expiry Date" />
-					<ComboBox fieldGroupIds="Credit Card" placeholder="Month..." value="{CreditCardMonth}" id="CreditCardMonth" enabled="{/document/paymentInProgress}">
-						<items>
-							<core:Item text="01" />
-							<core:Item text="02" />
-							<core:Item text="03" />
-							<core:Item text="04" />
-							<core:Item text="05" />
-							<core:Item text="06" />
-							<core:Item text="06" />
-							<core:Item text="07" />
-							<core:Item text="08" />
-							<core:Item text="09" />
-							<core:Item text="10" />
-							<core:Item text="11" />
-							<core:Item text="12" />
-						</items>
-					</ComboBox>
-					<ComboBox fieldGroupIds="Credit Card" placeholder="Year..." value="{CreditCardYear}" id="CreditCardYear" enabled="{/document/paymentInProgress}">
-						<items>
-							<core:Item text="2015" />
-							<core:Item text="2016" />
-							<core:Item text="2017" />
-							<core:Item text="2018" />
-							<core:Item text="2019" />
-							<core:Item text="2020" />
-						</items>
-					</ComboBox>
-					<Label text="Validation Code" />
-					<Input fieldGroupIds="Credit Card" maxLength="3" value="{CreditCardValidationCode}" id="CreditCardValidationCode" enabled="{/document/paymentInProgress}"/>
-					<Label text="Action"/>
-					<Button text="Pay" type="Emphasized" width="40%" press=".onPayment" enabled="{/document/paymentInProgress}"></Button>
+							<!-- Insurance Preparing -->
+							<core:Title text="Insurance" />
+							<Label text="Insurance company" labelFor="insurance-company"/>
+							<Input id="insurance-company" value="{/document/insuranceCompany}" enabled="{/document/insuranceReservationInProgress}"/>
+							<Label text="Save Changes"/>
+							<Button text="Submit" type="Emphasized" width="100%" press=".onInsuranceReservationFinish" enabled="{/document/insuranceReservationInProgress}" />
+							<Button icon="sap-icon://decline" type="Reject" width="20%" enabled="{= ${/document/insuranceReservationInProgress} === true ? false : true}" press=".onInsuranceReservationReset"/>
 
+							<!-- Documentation Upload -->
+							<core:Title text="Documentation" />
+							<Label text="Upload documentation" labelFor="fileUploader"/>
+							<u:FileUploader id="fileUploader" enabled="{/document/documentationUploadInProgress}"/>
+							<Label text="Save Changes"/>
+							<Button text="Submit" type="Emphasized" width="100%" enabled="{/document/documentationUploadInProgress}" press=".onPaperWorkUpload" />
+							<Button icon="sap-icon://decline" type="Reject" width="20%" enabled="{= ${/document/documentationUploadInProgress} === true ? false : true}" press=".onPaperWorkReset"/>
 
-				</f:content>
-			</f:SimpleForm>
-			<Button text="Finish With Documentation" type="Emphasized" press=".onFinish"/>
-		</VBox>
-	</Page>
+							<!-- Payment  -->
+							<core:Title text="Payment for transport, insurance and hotel" />
+							<Label text="Pay for Hotel" />
+							<Switch state="{/document/hotelPaid}" id="hotel-payment" enabled="{/document/paymentInProgress}"/>
+							<Label text="Vendor" />
+							<ComboBox fieldGroupIds="Credit Card" width="100%" placeholder="Choose your card vendor..." id="CreditCardVendor" enabled="{/document/paymentInProgress}">
+								<items>
+									<core:Item text="" />
+									<core:Item text="Mastercard" />
+									<core:Item text="Visa" />
+									<core:Item text="American Express" />
+								</items>
+							</ComboBox>
+							<Label text="Credit Card Number" />
+							<Input fieldGroupIds="Credit Card" maxLength="16" id="CreditCardNumber" enabled="{/document/paymentInProgress}"/>
+							<Label text="Expiry Date" />
+							<ComboBox fieldGroupIds="Credit Card" placeholder="Month..." id="CreditCardMonth" enabled="{/document/paymentInProgress}">
+								<items>
+									<core:Item text="01" />
+									<core:Item text="02" />
+									<core:Item text="03" />
+									<core:Item text="04" />
+									<core:Item text="05" />
+									<core:Item text="06" />
+									<core:Item text="06" />
+									<core:Item text="07" />
+									<core:Item text="08" />
+									<core:Item text="09" />
+									<core:Item text="10" />
+									<core:Item text="11" />
+									<core:Item text="12" />
+								</items>
+							</ComboBox>
+							<ComboBox fieldGroupIds="Credit Card" placeholder="Year..." id="CreditCardYear" enabled="{/document/paymentInProgress}">
+								<items>
+									<core:Item text="2021" />
+									<core:Item text="2022" />
+									<core:Item text="2023" />
+									<core:Item text="2024" />
+									<core:Item text="2025" />
+								</items>
+							</ComboBox>
+							<Label text="Validation Code" />
+							<Input fieldGroupIds="Credit Card" maxLength="3" id="CreditCardValidationCode" enabled="{/document/paymentInProgress}"/>
+							<Label text="Action"/>
+							<Button text="Pay" type="Emphasized" width="100%" press=".onPayment" enabled="{/document/paymentInProgress}" />
+							<Button icon="sap-icon://decline" type="Reject" width="20%" enabled="{= ${/document/paymentInProgress} === true ? false : true}" press=".onPaymentReset"/>
 
-
+						</f:content>
+					</f:SimpleForm>
+					<Button text="Finish With Documentation" type="Emphasized" press=".onFinish"/>
+				</VBox>
+			</Page>
+		</pages>
+	</App>
 </mvc:View>

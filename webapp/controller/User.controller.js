@@ -1,15 +1,15 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "sap/btp/myUI5App/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/ui/core/BusyIndicator",
   ],
-  function (Controller, JSONModel, Fragment, MessageBox, BusyIndicator) {
+  function (BaseController, JSONModel, Fragment, MessageBox, BusyIndicator) {
     "use strict";
 
-    return Controller.extend("sap.btp.myUI5App.controller.User", {
+    return BaseController.extend("sap.btp.myUI5App.controller.User", {
       onInit: function () {
         this.oView = this.getView();
         const db = firebase.firestore();
@@ -141,6 +141,14 @@ sap.ui.define(
         } else {
           this.getView().byId("date-pick").setValueState("Success");
         }
+      },
+      onPress: function (oEvent) {
+        var oItem, oCtx;
+        oItem = oEvent.getSource();
+        oCtx = oItem.getBindingContext();
+        this.getRouter().navTo("documentStatus", {
+          docId: oCtx.getProperty("reqId"),
+        });
       },
     });
   }

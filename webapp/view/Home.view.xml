@@ -1,17 +1,31 @@
 <mvc:View xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc" controllerName="sap.btp.myUI5App.controller.Home">
+	xmlns:mvc="sap.ui.core.mvc" controllerName="sap.btp.myUI5App.controller.Home"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
 	<Shell>
 		<App>
 			<pages>
 				<Page title="{i18n>homePageTitle}">
-					<content>
-						<Text text="{i18n>homePageContentText}" class="sapUiResponsiveMargin" width="auto" />
-						<Button text="{i18n>homePageButtonText}" press=".onNavToLogin" type="Emphasized"/>
-					</content>
+					<VBox class="sapUiSmallMargin">
+						<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Documentation" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<f:content>
+								<core:Title text="Register" />
+								<Label text="Name of Hotel" labelFor="hotel-name"/>
+								<Input id="hotel-name" value="{/document/hotelName}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
+								<Label text="Address of hotel" labelFor="hotel-address"/>
+								<Input id="hotel-address" value="{/document/hotelAddress}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
+
+								<Label text=""/>
+
+								<Button text="New Account" type="Ghost" width="100%" />
+								<core:Title text="Already have an account?" />
+								<Label text="Click To Proceed on login page"/>
+								<Button text="{i18n>homePageButtonText}" press=".onNavToLogin" type="Emphasized" />
+							</f:content>
+						</f:SimpleForm>
+					</VBox>
 				</Page>
 			</pages>
 		</App>
 	</Shell>
-
-
 </mvc:View>
