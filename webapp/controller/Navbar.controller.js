@@ -4,7 +4,7 @@ sap.ui.define(["./BaseController"], function (BaseController) {
   return BaseController.extend("sap.btp.myUI5App.controller.Navbar", {
     onSignOutPress: function () {
       firebase.auth().signOut();
-      this.getRouter().navTo("login");
+      this.getRouter().navTo("home");
     },
   });
 });

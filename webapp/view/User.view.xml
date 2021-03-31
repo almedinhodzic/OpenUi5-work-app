@@ -7,7 +7,7 @@
 				<content >
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
 					<MessageStrip text="{i18n>userNavigateRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
-					<Panel class="sapUiResponsiveMargin" width="auto">
+					<Panel class="sapUiResponsiveMargin" width="auto" headerText="Welcome to your Request Dashboard">
 						<Button text="Create Travel Request" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/>
 						<Table items="{/requests}" id="requestTable" noDataText="{i18n>noRequestsData}">
 							<headerToolbar>

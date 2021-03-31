@@ -3,24 +3,41 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
 	<Shell>
-		<App>
+		<App id="home">
 			<pages>
 				<Page title="{i18n>homePageTitle}">
 					<VBox class="sapUiSmallMargin">
-						<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Documentation" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+						<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 							<f:content>
+								<!-- Register Form -->
 								<core:Title text="Register" />
-								<Label text="Name of Hotel" labelFor="hotel-name"/>
-								<Input id="hotel-name" value="{/document/hotelName}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
-								<Label text="Address of hotel" labelFor="hotel-address"/>
-								<Input id="hotel-address" value="{/document/hotelAddress}" valueLiveUpdate="true" enabled="{/document/hotelReservationInProgress}" />
-
+								<Label text="First Name" labelFor="register-email"/>
+								<Input id="register-name" value="" valueLiveUpdate="true" required="true" placeholder="First Name..." type="Text"/>
+								<Label text="Last Name" labelFor="register-email"/>
+								<Input id="register-lastName" value="" valueLiveUpdate="true" required="true" placeholder="Last Name..." type="Text"/>
+								<Label text="Role" labelFor="register-role" required="true"/>
+								<Select id="register-role" selectedKey="Empty">
+									<items>
+										<core:Item text="Please select role for an account" key="Empty"/>
+										<core:Item text="user" key="user"/>
+										<core:Item text="supervisor" key="supervisor"/>
+										<core:Item text="admin" key="admin"/>
+									</items>
+								</Select>
+								<Label text="Email" labelFor="register-email"/>
+								<Input id="register-email" value="" valueLiveUpdate="true" required="true" placeholder="Email..." type="Email"/>
+								<Label text="Password" labelFor="register-password"/>
+								<Input id="register-password" value="" valueLiveUpdate="true" required="true" placeholder="Password..." type="Password"/>
 								<Label text=""/>
-
-								<Button text="New Account" type="Ghost" width="100%" />
+								<Button text="New Account" type="Emphasized" width="100%" press=".onRegisterClick"/>
+								<!-- Login Form -->
 								<core:Title text="Already have an account?" />
-								<Label text="Click To Proceed on login page"/>
-								<Button text="{i18n>homePageButtonText}" press=".onNavToLogin" type="Emphasized" />
+								<Label text="Email" labelFor="register-email"/>
+								<Input id="login-email" value="" valueLiveUpdate="true" required="true" placeholder="Your Email..." type="Email"/>
+								<Label text="Password" labelFor="register-password"/>
+								<Input id="login-password" value="" valueLiveUpdate="true" required="true" placeholder="Your Password..." type="Password"/>
+								<Label text=""/>
+								<Button text="{i18n>homePageButtonText}" press=".onLoginClick" type="Emphasized" />
 							</f:content>
 						</f:SimpleForm>
 					</VBox>

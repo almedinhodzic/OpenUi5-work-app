@@ -14,19 +14,21 @@ sap.ui.define(
         this.oView = this.getView();
         const db = firebase.firestore();
         const fnGetRequestsById = async (user) => {
-          const requestsRef = await db
-            .collection("requests")
-            .where("userId", "==", user.uid);
+          if (user) {
+            const requestsRef = await db
+              .collection("requests")
+              .where("userId", "==", user.uid);
 
-          const oRequests = {
-            requests: [],
-          };
+            const oRequests = {
+              requests: [],
+            };
 
-          const requestModel = new JSONModel(oRequests);
+            const requestModel = new JSONModel(oRequests);
 
-          this.oView.setModel(requestModel);
+            this.oView.setModel(requestModel);
 
-          this.getRealTimeRequests(requestsRef);
+            this.getRealTimeRequests(requestsRef);
+          }
         };
 
         firebase.auth().onAuthStateChanged(fnGetRequestsById);
@@ -109,6 +111,9 @@ sap.ui.define(
           MessageBox.success("Your request has been submited!");
           this.onCloseDialog();
         }
+        this.getView().byId("full-name-input").setValue("");
+        this.getView().byId("destination-input").setValue("");
+        this.getView().byId("date-pick").setValue("");
       },
       onSubmitError: function () {
         this.getView().byId("destination-input").setValueState("Error");

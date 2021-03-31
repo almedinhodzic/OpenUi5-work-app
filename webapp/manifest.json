@@ -80,7 +80,7 @@
           "target": ["TargetApp"]
         },
         {
-          "name": "Home",
+          "name": "home",
           "pattern": "",
           "target": "home"
         },
@@ -134,7 +134,6 @@
         },
         "home": {
           "viewType": "XML",
-          "viewLevel": 2,
           "viewId": "home",
           "viewName": "Home"
         },
