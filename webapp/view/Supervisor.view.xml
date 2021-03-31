@@ -3,7 +3,8 @@
 	xmlns="sap.m" displayBlock="true"
 	xmlns:c="sap.ui.core">
 	<App id="supervisor">
-		<pages >
+		<pages>
+			<!-- Supervisor dashboard with all users requests -->
 			<Page title="{i18n>supervisorPageHeader}">
 				<content>
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />

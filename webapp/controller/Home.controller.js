@@ -1,3 +1,4 @@
+// Controller for home page where we can register new account and assing role to it. If already have an account, we can simply login with email and password, and will be redirected to the dashboard
 sap.ui.define(
   ["sap/btp/myUI5App/controller/BaseController", "sap/m/MessageBox"],
   function (BaseController, MessageBox) {
@@ -5,12 +6,12 @@ sap.ui.define(
 
     return BaseController.extend("sap.btp.myUI5App.controller.Home", {
       onInit: function () {
+        this.oView = this.oView;
         this.db = firebase.firestore();
       },
       onLoginClick: async function () {
-        const sEmail = this.getView().byId("login-email").getValue();
-        const sPassword = this.getView().byId("login-password").getValue();
-        console.log(sEmail, sPassword);
+        const sEmail = this.oView.byId("login-email").getValue();
+        const sPassword = this.oView.byId("login-password").getValue();
         try {
           const userCredential = await firebase
             .auth()
@@ -23,15 +24,15 @@ sap.ui.define(
         } catch (error) {
           MessageBox.error(error.message);
         }
-        this.getView().byId("login-email").setValue("");
-        this.getView().byId("login-password").setValue("");
+        this.oView.byId("login-email").setValue("");
+        this.oView.byId("login-password").setValue("");
       },
       onRegisterClick: async function () {
-        const sEmail = this.getView().byId("register-email").getValue();
-        const sPassword = this.getView().byId("register-password").getValue();
-        const sFirstName = this.getView().byId("register-name").getValue();
-        const sLastName = this.getView().byId("register-lastName").getValue();
-        const sRole = this.getView().byId("register-role").getSelectedKey();
+        const sEmail = this.oView.byId("register-email").getValue();
+        const sPassword = this.oView.byId("register-password").getValue();
+        const sFirstName = this.oView.byId("register-name").getValue();
+        const sLastName = this.oView.byId("register-lastName").getValue();
+        const sRole = this.oView.byId("register-role").getSelectedKey();
         if (
           sEmail &&
           sPassword &&
@@ -50,11 +51,11 @@ sap.ui.define(
               role: sRole,
             });
             this.getRouter().navTo(sRole);
-            this.getView().byId("register-email").setValue("");
-            this.getView().byId("register-password").setValue("");
-            this.getView().byId("register-name").setValue("");
-            this.getView().byId("register-lastName").setValue("");
-            this.getView().byId("register-role").setSelectedKey("Empty");
+            this.oView.byId("register-email").setValue("");
+            this.oView.byId("register-password").setValue("");
+            this.oView.byId("register-name").setValue("");
+            this.oView.byId("register-lastName").setValue("");
+            this.oView.byId("register-role").setSelectedKey("Empty");
           } catch (error) {
             MessageBox.error(error.message);
           }

@@ -1,3 +1,5 @@
+// This is the controller for whole app, and here we listen for route changing, so we can manage
+// authenticated and unauthenticated users and redirect them base on their role
 sap.ui.define(["./BaseController"], function (BaseController) {
   "use strict";
 
@@ -13,7 +15,13 @@ sap.ui.define(["./BaseController"], function (BaseController) {
             const userData = await usersRef.get();
             // TODO: Navigation without dashboard
             const userRole = userData.data().role;
-            if (sRouteName === "home" && user) {
+            if (sRouteName === "home") {
+              oRouter.navTo(userRole);
+            }
+            if (
+              (sRouteName === "user" || sRouteName === "documentStatus") &&
+              userRole !== "user"
+            ) {
               oRouter.navTo(userRole);
             }
             if (
@@ -39,13 +47,6 @@ sap.ui.define(["./BaseController"], function (BaseController) {
             ) {
               oRouter.navTo("home");
             }
-          }
-
-          if (
-            (sRouteName === "user" || sRouteName === "documentStatus") &&
-            userRole !== "user"
-          ) {
-            oRouter.navTo(userRole);
           }
         });
       });

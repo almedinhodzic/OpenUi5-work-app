@@ -1,3 +1,4 @@
+// In this controller, model with document is set to the view. User can check live updates from the database and in every moment see preparation of the documentation. So if admin finish hotel reservation, user will see status as Finished, and Success.
 sap.ui.define(
   [
     "sap/btp/myUI5App/controller/BaseController",
@@ -19,7 +20,6 @@ sap.ui.define(
       },
       _onRouteMatched: async function (oEvent) {
         const oArgs = oEvent.getParameter("arguments").docId;
-        console.log(oArgs);
         this.oArgs = oArgs;
         const documentationRef = this.db.collection("documentation").doc(oArgs);
         this.documentationRef = documentationRef;
@@ -37,7 +37,6 @@ sap.ui.define(
           const docData = docModel.getData();
           docData.document = docSnap.data();
           this.document = docData.document;
-          console.log(docData.document);
           this.getView().getModel().refresh(true);
           BusyIndicator.hide();
         });

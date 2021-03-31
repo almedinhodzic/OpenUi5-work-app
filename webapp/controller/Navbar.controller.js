@@ -1,3 +1,4 @@
+// Controller for navigation, but only there is sign out button, where user can log out from his account, and will be redirected to the home page.
 sap.ui.define(["./BaseController"], function (BaseController) {
   "use strict";
 

@@ -3,6 +3,7 @@
 	xmlns="sap.m" displayBlock="true">
 	<App id="admin">
 		<pages >
+			<!-- Page for admin dashboard with approved request. -->
 			<Page title="{i18n>adminPageHeader}">
 				<content >
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />

@@ -3,12 +3,13 @@
 	xmlns="sap.m" displayBlock="true">
 	<App id="user">
 		<pages >
+			<!-- User can see all his requests with live updates on approvat or rejections from supervisor -->
 			<Page title="{i18n>userPageHeader}">
 				<content >
 					<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
 					<MessageStrip text="{i18n>userNavigateRule}" type="Information" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"/>
 					<Panel class="sapUiResponsiveMargin" width="auto" headerText="Welcome to your Request Dashboard">
-						<Button text="Create Travel Request" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/>
+						<Button text="{i18n>userCreateRequestButton}" type="Emphasized" id="createRequestButton" press=".onOpenDialog"/>
 						<Table items="{/requests}" id="requestTable" noDataText="{i18n>noRequestsData}">
 							<headerToolbar>
 								<Toolbar>

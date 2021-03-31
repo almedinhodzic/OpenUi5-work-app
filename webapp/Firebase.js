@@ -1,3 +1,4 @@
+// Here we initialize firebase to our project, and call it in base controller
 sap.ui.define(["sap/ui/model/json/JSONModel"], function (JSONModel) {
   "use strict";
   const firebaseConfig = {

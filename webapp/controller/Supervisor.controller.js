@@ -1,3 +1,4 @@
+// In this controller, supervisor fetch all requests from all users and can click on pending requests and chose to approve or reject them. Rejected requests can be deleted by supervisor, and also will be deleted for user who submitted. Any change in database will be visible for supervisor immediately.
 sap.ui.define(
   ["sap/btp/myUI5App/controller/BaseController", "sap/ui/model/json/JSONModel"],
   function (BaseController, JSONModel) {
@@ -5,6 +6,7 @@ sap.ui.define(
 
     return BaseController.extend("sap.btp.myUI5App.controller.Supervisor", {
       onInit: function () {
+        this.oView = this.oView;
         this.db = firebase.firestore();
         const requestsRef = this.db.collection("requests");
         const oRequests = {
@@ -13,13 +15,13 @@ sap.ui.define(
 
         const requestModel = new JSONModel(oRequests);
 
-        this.getView().setModel(requestModel);
+        this.oView.setModel(requestModel);
 
         this.getRealTimeRequests(requestsRef);
       },
       getRealTimeRequests: function (requestsRef) {
         requestsRef.onSnapshot((snapshot) => {
-          const requestsModel = this.getView().getModel();
+          const requestsModel = this.oView.getModel();
           const requestsData = requestsModel.getData();
           snapshot.docChanges().forEach((change) => {
             const oRequest = change.doc.data();
@@ -42,26 +44,25 @@ sap.ui.define(
               requestsData.requests.splice(index, 1);
             }
           });
-          this.getView().getModel().refresh(true);
-          this.getView()
+          this.oView.getModel().refresh(true);
+          this.oView
             .byId("supervisorRequestTable")
             .getBinding("items")
             .refresh();
         });
       },
       onPress: function (oEvent) {
-        var oItem, oCtx;
+        let oItem, oCtx;
         oItem = oEvent.getSource();
-        console.log(oItem);
         oCtx = oItem.getBindingContext();
         this.getRouter().navTo("review", {
           requestId: oCtx.getProperty("id"),
         });
       },
       onItemDelete: async function (oEvent) {
-        const oItem = oEvent.getSource();
-        const oCtx = oItem.getBindingContext();
-        console.log(oCtx.getProperty("id"));
+        let oItem, oCtx;
+        oItem = oEvent.getSource();
+        oCtx = oItem.getBindingContext();
         await this.db
           .collection("requests")
           .doc(oCtx.getProperty("id"))

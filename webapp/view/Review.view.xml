@@ -4,34 +4,32 @@
 	xmlns:f="sap.ui.layout.form" displayBlock="true" busyIndicatorDelay="0">
 	<App >
 		<pages>
+			<!-- Page where user can approve or reject request from user -->
 			<Page showNavButton="true" navButtonPress="onNavBack">
 				<mvc:XMLView viewName="sap.btp.myUI5App.view.Navbar" />
-				<f:SimpleForm title="Request" class="sapUiResponsiveMargin" width="auto">
-					<Label text="Name"/>
+				<f:SimpleForm title="{i18n>reviewFormTitle}" class="sapUiResponsiveMargin" width="auto">
+					<Label text="{i18n>reviewName}"/>
 					<Text text="{/request/fullName}"/>
-					<Label text="Destination"/>
+					<Label text="{i18n>reviewDestination}"/>
 					<Text text="{/request/destination}"/>
-					<Label text="Date Range"/>
+					<Label text="{i18n>reviewDateRange}"/>
 					<Text text="{/request/dateRange}"/>
 				</f:SimpleForm>
+				<!-- Buttons -->
 				<OverflowToolbar class="sapUiResponsiveMargin" width="auto">
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Approve" press=".onApproveDialogPress">
+					<Button type="Accept" text="{i18n>reviewApproveButton}" press=".onApproveDialogPress">
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>
 					</Button>
-					<Button type="Reject" text="Reject" press=".onRejectDialogPress">
+					<Button type="Reject" text="{i18n>reviewRejectButton}" press=".onRejectDialogPress">
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>
 					</Button>
-
-
 				</OverflowToolbar>
 			</Page>
 		</pages>
-
 	</App>
-
 </mvc:View>

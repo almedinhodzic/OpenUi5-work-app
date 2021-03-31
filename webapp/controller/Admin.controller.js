@@ -1,15 +1,16 @@
+// In this controller we make model for Admin view, where we display only
+// Approved requests after supervisor's check. Admin will get email about approved request and he is ready to make documentation for travel
+// Model will refresh automatically on every change in firestore, and admin has realtime updates
+// on requests.
 sap.ui.define(
-  [
-    "sap/ui/core/mvc/Controller",
-    "sap/btp/myUI5App/controller/BaseController",
-    "sap/ui/model/json/JSONModel",
-  ],
-  function (Controller, BaseController, JSONModel) {
+  ["sap/btp/myUI5App/controller/BaseController", "sap/ui/model/json/JSONModel"],
+  function (BaseController, JSONModel) {
     "use strict";
 
     return BaseController.extend("sap.btp.myUI5App.controller.Admin", {
       onInit: function () {
         const db = firebase.firestore();
+        this.oView = this.getView();
         const requestsRef = db
           .collection("requests")
           .where("status", "==", "Approved");
@@ -19,13 +20,13 @@ sap.ui.define(
 
         const requestModel = new JSONModel(oRequests);
 
-        this.getView().setModel(requestModel);
+        this.oView.setModel(requestModel);
 
         this.getRealTimeRequests(requestsRef);
       },
       getRealTimeRequests: function (requestsRef) {
         requestsRef.onSnapshot((snapshot) => {
-          const requestsModel = this.getView().getModel();
+          const requestsModel = this.oView.getModel();
           const requestsData = requestsModel.getData();
           snapshot.docChanges().forEach((change) => {
             const oRequest = change.doc.data();
@@ -48,17 +49,13 @@ sap.ui.define(
               requestsData.requests.splice(index, 1);
             }
           });
-          this.getView().getModel().refresh(true);
-          this.getView()
-            .byId("adminRequestTable")
-            .getBinding("items")
-            .refresh();
+          this.oView.getModel().refresh(true);
+          this.oView.byId("adminRequestTable").getBinding("items").refresh();
         });
       },
       onPress: function (oEvent) {
-        var oItem, oCtx;
+        let oItem, oCtx;
         oItem = oEvent.getSource();
-        console.log(oItem);
         oCtx = oItem.getBindingContext();
         this.getRouter().navTo("documentation", {
           docId: oCtx.getProperty("reqId"),

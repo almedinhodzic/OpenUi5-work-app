@@ -3,6 +3,7 @@
 	xmlns="sap.m" displayBlock="true"
 	xmlns:tnt="sap.tnt">
 	<tnt:ToolHeader>
+		<!-- Reusable View for loging out from account -->
 		<Button text="{i18n>signOutButtonText}" press=".onSignOutPress" type="Ghost">
 		</Button>
 	</tnt:ToolHeader>

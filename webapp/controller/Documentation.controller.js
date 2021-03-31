@@ -1,3 +1,9 @@
+// In this controller, we get request and starting to prepare documentation for user.
+// Supervisor approved this request and we fetch an empty document from firestore, and set it
+// as a model. Live changes will be visible to user and admin, so when admin change something, user
+// will also know about every change
+// For documentation upload and paying, there is no restriction because payment is not real, same as
+// upload, be simualtion atleast. Before reservation, admin has to fill fields. If something is not right admin will be warned by warning about it.
 sap.ui.define(
   [
     "sap/btp/myUI5App/controller/BaseController",
@@ -19,17 +25,14 @@ sap.ui.define(
           .attachMatched(this._onRouteMatched, this);
       },
       _onRouteMatched: async function (oEvent) {
-        const oArgs = oEvent.getParameter("arguments").docId;
-        console.log(oArgs);
-        this.oArgs = oArgs;
-        const documentationRef = this.db.collection("documentation").doc(oArgs);
+        this.oArgs = oEvent.getParameter("arguments").docId;
+        const documentationRef = this.db
+          .collection("documentation")
+          .doc(this.oArgs);
         const reqId = oEvent.getParameter("arguments").reqId;
         const requestRef = this.db.collection("requests").doc(reqId);
-        console.log(reqId);
         this.requestRef = requestRef;
         this.documentationRef = documentationRef;
-        // const doc = await documentationRef.get();
-        // this.document = doc.data();
         const oDocument = {
           document: {},
         };
@@ -43,8 +46,7 @@ sap.ui.define(
           const docData = docModel.getData();
           docData.document = docSnap.data();
           this.document = docData.document;
-          console.log(docData.document);
-          this.getView().getModel().refresh(true);
+          this.oView.getModel().refresh(true);
           BusyIndicator.hide();
         });
       },

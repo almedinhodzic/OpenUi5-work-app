@@ -1,3 +1,4 @@
+// In this controller, supervisor fetch request from user, and has 2 choises. He can approve request from user to travel, or reject. If approve, admin we get new request to make documentation, but if he rejects, only user who submitted request will se it. In both cases user will get an email with message about approval or rejection. On approval, admin will get email about it.
 sap.ui.define(
   [
     "sap/btp/myUI5App/controller/BaseController",
@@ -33,9 +34,7 @@ sap.ui.define(
         const requestRef = this.db.collection("requests").doc(oArgs);
         this.requestRef = requestRef;
         const doc = await requestRef.get();
-        console.log(doc.data());
         const request = doc.data();
-        console.log(request.reqId);
         this.id = request.reqId;
         this.fullName = request.fullName;
         this.destination = request.destination;
