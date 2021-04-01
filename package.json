@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "author": "Almedin Hodzic",
   "scripts": {
-    "start": "ui5 serve --open index.html"
+    "start": "ui5 serve --open index.html",
+    "build": "run-s  build:webapp",
+    "build:webapp": "ui5 build --config=ui5.yaml --clean-dest --dest dist --include-task=generateManifestBundle"
   },
   "devDependencies": {
     "@ui5/cli": "^2.8.1",
