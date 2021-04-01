@@ -154,6 +154,19 @@ sap.ui.define(
           await this.requestRef.update({
             documentation: "Finished",
           });
+          this.db.collection("mail").add({
+            to: this.document.email,
+            template: {
+              name: "docsReady",
+              data: {
+                hotelName: this.document.hotelName,
+                hotelAddress: this.document.hotelAddress,
+                typeOfTransport: this.document.typeOfTransport,
+                hotelStreetNum: this.document.hotelStreetNum,
+                hotelPaid: this.document.hotelPaid,
+              },
+            },
+          });
           this.getRouter().navTo("admin");
         } else {
           MessageBox.error("You have to prepare everything before action!");

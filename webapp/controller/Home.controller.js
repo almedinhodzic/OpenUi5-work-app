@@ -1,7 +1,11 @@
 // Controller for home page where we can register new account and assing role to it. If already have an account, we can simply login with email and password, and will be redirected to the dashboard
 sap.ui.define(
-  ["sap/btp/myUI5App/controller/BaseController", "sap/m/MessageBox"],
-  function (BaseController, MessageBox) {
+  [
+    "sap/btp/myUI5App/controller/BaseController",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+  ],
+  function (BaseController, MessageBox, MessageToast) {
     "use strict";
 
     return BaseController.extend("sap.btp.myUI5App.controller.Home", {
@@ -11,11 +15,13 @@ sap.ui.define(
       },
       onLoginClick: async function () {
         const sEmail = this.oView.byId("login-email").getValue();
+        this.sEmail = sEmail;
         const sPassword = this.oView.byId("login-password").getValue();
         try {
           const userCredential = await firebase
             .auth()
             .signInWithEmailAndPassword(sEmail, sPassword);
+          MessageToast.show("Successfully logged in");
           const user = userCredential.user;
           const userRef = this.db.collection("users").doc(user.uid);
           const userData = await userRef.get();
@@ -49,7 +55,9 @@ sap.ui.define(
               name: sFirstName,
               lastName: sLastName,
               role: sRole,
+              email: sEmail,
             });
+            MessageToast.show("Successfully created an account");
             this.getRouter().navTo(sRole);
             this.oView.byId("register-email").setValue("");
             this.oView.byId("register-password").setValue("");

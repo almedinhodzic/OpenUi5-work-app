@@ -8,6 +8,7 @@ sap.ui.define(
     "sap/m/Button",
     "sap/m/ButtonType",
     "sap/m/Text",
+    "sap/m/MessageBox",
   ],
   function (
     BaseController,
@@ -16,7 +17,8 @@ sap.ui.define(
     DialogType,
     Button,
     ButtonType,
-    Text
+    Text,
+    MessageBox
   ) {
     "use strict";
 
@@ -25,30 +27,42 @@ sap.ui.define(
         this.db = firebase.firestore();
         this.oView = this.getView();
         const oRouter = this.getRouter();
+
         oRouter.getRoute("review").attachMatched(this._onRouteMatched, this);
       },
       _onRouteMatched: async function (oEvent) {
         const oArgs = oEvent.getParameter("arguments").requestId;
-        console.log(oArgs);
         this.oArgs = oArgs;
+        // Get admin mails to send email on request approval
+        const usersRef = this.db.collection("users");
+        const users = await usersRef.where("role", "==", "admin").get();
+        const adminList = [];
+        users.forEach((doc) => {
+          adminList.push(doc.data().email);
+        });
+        this.adminList = adminList;
+        // Request and informations from it
         const requestRef = this.db.collection("requests").doc(oArgs);
+
         this.requestRef = requestRef;
         const doc = await requestRef.get();
+        if (!doc.exists) {
+          console.log("nope");
+        }
+
         const request = doc.data();
+
         this.id = request.reqId;
         this.fullName = request.fullName;
         this.destination = request.destination;
         this.dateRange = request.dateRange;
         this.email = request.email;
-        if (request === undefined) {
-          this.getRouter().navTo("notFound");
-        } else {
-          const oRequest = {
-            request,
-          };
-          const requestModel = new JSONModel(oRequest);
-          this.oView.setModel(requestModel);
-        }
+
+        const oRequest = {
+          request,
+        };
+        const requestModel = new JSONModel(oRequest);
+        this.oView.setModel(requestModel);
       },
       onApprove: async function () {
         await this.requestRef.update({
@@ -81,11 +95,44 @@ sap.ui.define(
           documentationUploadInProgress: true,
           paymentInProgress: true,
         });
+        this.db.collection("mail").add({
+          to: this.email,
+          template: {
+            name: "approval",
+            data: {
+              fullName: this.fullName,
+              destination: this.destination,
+              dateRange: this.dateRange,
+            },
+          },
+        });
+        this.db.collection("mail").add({
+          to: this.adminList,
+          template: {
+            name: "adminDocs",
+            data: {
+              fullName: this.fullName,
+              destination: this.destination,
+              dateRange: this.dateRange,
+            },
+          },
+        });
         this.getRouter().navTo("supervisor");
       },
       onReject: async function () {
         await this.requestRef.update({
           status: "Rejected",
+        });
+        this.db.collection("mail").add({
+          to: this.email,
+          template: {
+            name: "rejection",
+            data: {
+              fullName: this.fullName,
+              destination: this.destination,
+              dateRange: this.dateRange,
+            },
+          },
         });
         this.getRouter().navTo("supervisor");
       },
